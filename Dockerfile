@@ -17,7 +17,7 @@ FROM node:24-alpine AS production
 WORKDIR /usr/src/app
 
 COPY --from=build /usr/src/app/package.json ./package.json
-COPY --from=build /usr/src/app/tsconfig.json ./tsconfig.json
+#COPY --from=build /usr/src/app/tsconfig.json ./tsconfig.json
 COPY --from=build /usr/src/app/dist ./dist
 COPY --from=build /usr/src/app/node_modules ./node_modules
 

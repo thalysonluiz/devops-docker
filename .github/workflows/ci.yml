@@ -50,7 +50,7 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           push: true
-          tags: thalysonluiz/ci-api:${{ steps.generate_tag.outputs.sha }}/thalysonluiz/ci-api:latest
+          tags: thalysonluiz/ci-api:${{ steps.generate_tag.outputs.sha }},thalysonluiz/ci-api:latest
 
       # - name: Build
       #   run: docker build -t thalysonluiz/ci-api:${{ steps.generate_tag.outputs.sha }} .

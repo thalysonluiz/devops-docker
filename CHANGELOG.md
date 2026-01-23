@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/thalysonluiz/devops-docker/compare/v1.0.0...v1.1.0) (2026-01-23)
+
+
+### Features
+
+* update CI permissions and increase wait time for service stability ([83efd67](https://github.com/thalysonluiz/devops-docker/commit/83efd67aa0f4d8cdbedc294f2fb7518d13c4195c))
+
 # 1.0.0 (2026-01-23)
 
 

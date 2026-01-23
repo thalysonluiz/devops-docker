@@ -11,6 +11,8 @@ on:
 permissions:
   id-token: write
   contents: write
+  issues: write
+  pull-requests: write
 
 jobs:
   build:
@@ -83,7 +85,7 @@ jobs:
           cpu: 1
           memory: 2
           port: 3000
-          wait-for-service-stability-seconds: 180
+          wait-for-service-stability-seconds: 300
 
       - name: App Runner URL
         run: echo "App Runner URL:${{ steps.deploy-app-runner.outputs.service-url }}"

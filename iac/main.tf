@@ -5,6 +5,12 @@ terraform {
       version = "6.28.0"
     }
   }
+
+  backend "s3" {
+    bucket = "thalysonluiz-iac"
+    key    = "state/terraform.tfstate"
+    region = "us-east-1"
+  }
 }
 
 provider "aws" {

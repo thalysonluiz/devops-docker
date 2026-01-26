@@ -84,6 +84,54 @@ resource "aws_iam_role_policy" "ecr_policy" {
 
 }
 
+resource "aws_iam_role" "tf-role" {
+  name = "tf-role"
+
+  assume_role_policy = jsonencode({
+    Statement = [
+      {
+        Action = "sts:AssumeRoleWithWebIdentity"
+        Condition = {
+          StringEquals = {
+            "token.actions.githubusercontent.com:aud" = "sts.amazonaws.com"
+            "token.actions.githubusercontent.com:sub" = "repo:thalysonluiz/devops-docker:ref:refs/heads/main"
+          }
+        }
+        Effect = "Allow"
+        Principal = {
+          Federated = "arn:aws:iam::403429280851:oidc-provider/token.actions.githubusercontent.com"
+        }
+      }
+    ]
+    Version = "2012-10-17"
+  })
+  tags = {
+    IAC = "True"
+  }
+}
+
+resource "aws_iam_role_policy" "tf_policy" {
+  name = "tf_policy"
+  role = aws_iam_role.tf-role.id
+
+  policy = jsonencode({
+    Statement = [{
+      Sid      = "Statement1"
+      Action   = "ecr:*"
+      Effect   = "Allow"
+      Resource = "*"
+      },
+      {
+        Sid      = "Statement2"
+        Action   = "iam:*"
+        Effect   = "Allow"
+        Resource = "*"
+      }
+    ]
+  })
+
+}
+
 resource "aws_iam_role" "app_runner_role" {
   name = "app_runner_role"
 
@@ -109,4 +157,3 @@ resource "aws_iam_role_policy_attachment" "app_runner_ecr_policy" {
   role       = aws_iam_role.app_runner_role.name
   policy_arn = "arn:aws:iam::aws:policy/AmazonEC2ContainerRegistryReadOnly"
 }
-
